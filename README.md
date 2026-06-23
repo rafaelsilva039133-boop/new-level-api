@@ -44,13 +44,15 @@ task
 
 - id
 - title
-- content
+- description
 - userId
+- user
 - createdAt
 - dueDate
 - completedAt
 - category
 - difficulty
+- updatedAt
 ```
 
 # Posts

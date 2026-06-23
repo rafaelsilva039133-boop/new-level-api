@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User{
+  id String @id
+  clerkId String @unique
+  name String
+  email String @unique
+  level Int
+  currentXp Int
+
+  tasks     Task[]
+
+  createdAt DateTime
+  updatedAt DateTime @updatedAt
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model Task {
+  id          String   @id
+  title       String
+  description String?
+
+  priority    Priority    @default(MEDIUM)
+  difficulty  Difficulty  @default(MEDIUM)
+
+  xpReward    Int
+
+  dueDate DateTime?
+  completedAt DateTime?
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+
+  createdAt   DateTime 
+  updatedAt DateTime @updatedAt
+}
