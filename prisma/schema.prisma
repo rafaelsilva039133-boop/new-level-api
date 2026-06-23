@@ -38,10 +38,17 @@ enum Difficulty {
   HARD
 }
 
+enum Status {
+  COMPLETED
+  OVERDUE
+  PENDING
+}
+
 model Task {
   id          String   @id
   title       String
   description String?
+  status Status @default(PENDING)
 
   priority    Priority    @default(MEDIUM)
   difficulty  Difficulty  @default(MEDIUM)
