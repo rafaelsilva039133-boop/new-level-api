@@ -8,11 +8,12 @@ interface UserSchema {
   level: number;
   currentXp: number;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export class User {
-  props: UserSchema;
-  _id: string;
+  private props: UserSchema;
+  private _id: string;
 
   constructor(
     props: Replace<

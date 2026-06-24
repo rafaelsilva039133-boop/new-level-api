@@ -23,7 +23,7 @@ model User{
   tasks     Task[]
 
   createdAt DateTime
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime 
 }
 
 enum Priority {
