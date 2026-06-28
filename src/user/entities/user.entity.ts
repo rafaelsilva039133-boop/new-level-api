@@ -1,5 +1,6 @@
 import { randomUUID } from 'crypto';
 import { Replace } from 'src/helpers/replace';
+import { Task } from 'src/task/entities/task.entity';
 
 interface UserSchema {
   clerkId: string;
@@ -8,7 +9,8 @@ interface UserSchema {
   level: number;
   currentXp: number;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt: Date | null;
+  tasks: Task[];
 }
 
 export class User {
@@ -20,17 +22,21 @@ export class User {
       UserSchema,
       {
         createdAt?: Date;
+        updatedAt?: Date | null;
         level?: number;
         currentXp?: number;
+        tasks?: Task[];
       }
     >,
     id?: string,
   ) {
     this.props = {
       ...props,
-      createdAt: props.createdAt || new Date(),
+      createdAt: props.createdAt ?? new Date(),
+      updatedAt: props.updatedAt ?? null,
       level: props.level ?? 0,
       currentXp: props.currentXp ?? 0,
+      tasks: props.tasks ?? [],
     };
 
     this._id = id || randomUUID();
@@ -78,5 +84,17 @@ export class User {
 
   get createdAt(): Date {
     return this.props.createdAt;
+  }
+
+  get updatedAt(): Date | null {
+    return this.props.updatedAt;
+  }
+
+  set updatedAt(updatedAt: Date) {
+    this.props.updatedAt = updatedAt;
+  }
+
+  get tasks(): Task[] {
+    return this.props.tasks;
   }
 }
